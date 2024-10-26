@@ -177,7 +177,7 @@ export default function AtendimentoMain() {
         <IconIA src="/assets/img/iconAI.png" alt="Icone de lapis" /> Converse
         com a nossa IA
       </h1>
-      <p>Faça o diganóstico e o orçamento do seu carro totalmente online.</p>
+      <p>Faça o diagnóstico e o orçamento do seu carro totalmente online.</p>
       <InputContainer>
         <input
           type="text"
