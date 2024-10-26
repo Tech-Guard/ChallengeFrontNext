@@ -1,6 +1,6 @@
 "use client";
 import styled from "styled-components";
-import { Link as ScrollLink } from "react-scroll";
+import { Link as ScrollLink } from 'react-scroll';
 
 const BannerSection = styled.section`
   display: flex;
@@ -90,20 +90,21 @@ const BannerSection = styled.section`
   }
 `;
 
-const AssistenteButton = styled.button`
+const AssistenteButton = styled(ScrollLink)`
   background-color: #ffffff;
   font-size: 24px;
   color: #6fc0e8;
   padding: 8px 24px;
   border-radius: 8px;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
   border: none;
   display: inline-block;
 
   &:hover {
     color: #054a77;
+    background-color: #f0f0f0;
   }
 
   @media only screen and (max-width: 1440px) {
@@ -176,14 +177,9 @@ export default function BannerMain() {
           Receba um diagnóstico e orçamento automáticos, além dos melhores
           centros automotivos ao seu alcance.
         </p>
-        <ScrollLink
-          to="atendimento-main"
-          smooth={true}
-          duration={500}
-          component={AssistenteButton}
-        >
+        <AssistenteButton to="atendimento-main" smooth={true} duration={500}>
           Assistente
-        </ScrollLink>
+        </AssistenteButton>
       </TextoBanner>
 
       <ImgBanner>
