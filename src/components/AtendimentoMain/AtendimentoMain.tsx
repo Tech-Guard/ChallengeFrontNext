@@ -2,9 +2,8 @@
 import styled from "styled-components";
 import CardsProblemas from "../CardsProblemas/CardsProblemas";
 
-
 const AtendimentoSection = styled.section`
-   margin: 90px 180px;
+  margin: 90px 180px;
 
   h1 {
     font-size: 40px;
@@ -76,20 +75,18 @@ const AtendimentoSection = styled.section`
   }
 `;
 
-
 const IconIA = styled.img`
-    width: 30px;
-    margin-right: 10px;
+  width: 30px;
+  margin-right: 10px;
 
-    @media only screen and (max-width: 680px) {
-      width: 24px;
-    }
+  @media only screen and (max-width: 680px) {
+    width: 24px;
+  }
 
-    @media only screen and (max-width: 400px) {
-      width: 22px;
-    }
+  @media only screen and (max-width: 400px) {
+    width: 22px;
+  }
 `;
-
 
 const InputContainer = styled.div`
   display: inline-block;
@@ -141,50 +138,64 @@ const InputContainer = styled.div`
 `;
 
 const LupaInput = styled.img`
-    cursor: pointer;
-    width: 36px;
-    float: right;
+  cursor: pointer;
+  width: 36px;
+  float: right;
 
-    @media only screen and (max-width: 680px) {
-      width: 28px;
-    }
+  @media only screen and (max-width: 680px) {
+    width: 28px;
+  }
 `;
-
 
 const ProblemasText = styled.p`
   font-weight: bold;
   margin-top: 8px;
 `;
 
+export default function AtendimentoMain() {
+  const listaProblemas = [
+    {
+      titulo: "Pneus",
+      altImg: "Imagem de vários pneus",
+      srcImg: "/assets/img/pneus.jpg",
+    },
+    {
+      titulo: "Suspensão",
+      altImg: "Imagem de um homem arrumando a suspensão de um carro",
+      srcImg: "/assets/img/suspensao.jpg",
+    },
+    {
+      titulo: "Direção",
+      altImg: "Imagem de uma pessoa dirigindo",
+      srcImg: "/assets/img/direcao.jpg",
+    },
+  ];
 
-export default function AtendimentoMain(){
+  return (
+    <AtendimentoSection id="atendimento-main">
+      <h1>
+        <IconIA src="/assets/img/iconAI.png" alt="Icone de lapis" /> Converse
+        com a nossa IA
+      </h1>
+      <p>Faça o diganóstico e o orçamento do seu carro totalmente online.</p>
+      <InputContainer>
+        <input
+          type="text"
+          placeholder="Gostaria de fazer o diagnóstico do meu carro..."
+        />
+        <LupaInput src="/assets/img/iconLupa.png" alt="Imagem de uma lupa" />
+      </InputContainer>
 
-    const listaProblemas = [
-        {titulo: "Pneus", altImg: "Imagem de vários pneus", srcImg:"/assets/img/pneus.jpg"},
-        {titulo: "Suspensão", altImg: "Imagem de um homem arrumando a suspensão de um carro", srcImg:"/assets/img/suspensao.jpg"},
-        {titulo: "Direção", altImg: "Imagem de uma pessoa dirigindo", srcImg:"/assets/img/direcao.jpg"}
-    ]
+      <ProblemasText>*Possíveis problemas</ProblemasText>
 
-    return(
-        <AtendimentoSection id="atendimento-main">
-            <h1><IconIA src="/assets/img/iconAI.png" alt="Icone de lapis"/> Converse com a nossa IA</h1>
-            <p>
-              Faça o diganóstico e o orçamento do seu carro totalmente online.
-            </p>
-            <InputContainer>
-                <input
-                  type="text"
-                  placeholder="Gostaria de fazer o diagnóstico do meu carro..."
-                />
-                <LupaInput src="/assets/img/iconLupa.png" alt="Imagem de uma lupa" />
-            </InputContainer>
-  
-            <ProblemasText>*Possíveis problemas</ProblemasText>
-  
-            {listaProblemas.map((problema)=>(
-                <CardsProblemas titulo={problema.titulo} altImg={problema.altImg} srcImg={problema.srcImg}/>
-            ))}
-
-        </AtendimentoSection>
-    )
+      {listaProblemas.map((problema, index) => (
+        <CardsProblemas
+          key={index}
+          titulo={problema.titulo}
+          altImg={problema.altImg}
+          srcImg={problema.srcImg}
+        />
+      ))}
+    </AtendimentoSection>
+  );
 }
