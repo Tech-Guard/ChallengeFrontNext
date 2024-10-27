@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+"use client";
+import Link from 'next/link';
 import styled from "styled-components";
 import { useState } from "react";
-"use client";
+
 
 const Main = styled.main`
     margin: 0 auto;
@@ -257,7 +258,7 @@ interface BolinhaProps {
     mostrarSenha: boolean;
 }
 
-const Bolinha = styled.span<BolinhaProps>`
+const Bolinha = styled.span`
     display: inline-block;
     width: 14px;
     height: 14px;
@@ -266,7 +267,7 @@ const Bolinha = styled.span<BolinhaProps>`
     border: 1px solid #333;
     margin-right: 5px;
     cursor: pointer;
-    background-color: ${(props) => (props.mostrarSenha ? "black" : "white")};
+    background-color: ${(props) => (props.className === "mostrar" ? "black" : "white")};
 
     @media only screen and (max-width: 665px){
         width: 12px;
@@ -290,8 +291,8 @@ export default function FormCadastro(){
         <Main>
             <h1>Bem-Vindo</h1>
             <ButtonsDiv>
-                <BtnLogin to="/login">Login</BtnLogin>
-                <BtnCadastro to="/">Cadastrar</BtnCadastro>
+                <BtnLogin href="/login">Login</BtnLogin>
+                <BtnCadastro href="/">Cadastrar</BtnCadastro>
             </ButtonsDiv>
 
             <form>
@@ -326,14 +327,14 @@ export default function FormCadastro(){
                 </div>
 
                 <MostrarSenha onClick={toggleMostrarSenha}>
-                    <Bolinha mostrarSenha={mostrarSenha}/>
+                    <Bolinha className={mostrarSenha ? "mostrar" : ""}/>
                     {mostrarSenha ? "Esconder senha" : "Mostrar senha"}
                 </MostrarSenha>
 
                 <Registrar type="button">Registrar</Registrar>
             </form>
             <p>
-            Já tem uma conta? <Entrar to="/login">Entrar</Entrar>
+            Já tem uma conta? <Entrar href="/login">Entrar</Entrar>
             </p>
         </Main>
     )

@@ -87,6 +87,7 @@ const Nav = styled.nav<{ $isMenuOpen: boolean }>`
   ul {
     list-style-type: none;
     display: flex;
+    align-items: center;
 
     @media only screen and (max-width: 834px) {
       display: ${({ $isMenuOpen }) => ($isMenuOpen ? "block" : "none")};
@@ -196,16 +197,19 @@ export default function Header() {
             </ScrollLink>
           </li>
           <li>
-            <Link href="/login">Entrar</Link>
+            <Link href="/login">
+              Entrar
+            </Link>
           </li>
+
           <li>
             <ScrollLink
               to="atendimento-main"
               smooth={true}
               duration={500}
-              component={AtendimentoButton}
+              
             >
-              ATENDIMENTO
+              <AtendimentoButton>ATENDIMENTO</AtendimentoButton>
             </ScrollLink>
           </li>
         </ul>

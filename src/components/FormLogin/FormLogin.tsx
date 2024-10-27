@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from 'next/link';
 import styled from "styled-components";
 import { useState } from "react";
-"use client";
+
 
 
 const Main = styled.main`
@@ -292,7 +294,7 @@ export default function FormLogin(){
 
             <ButtonsDiv>
                 <BtnEntrar href="#">Login</BtnEntrar>
-                <BtnCadastro to="/cadastro">Cadastrar</BtnCadastro>
+                <BtnCadastro href="/cadastro">Cadastrar</BtnCadastro>
             </ButtonsDiv>
 
             <form id="entrarForm">
@@ -302,6 +304,7 @@ export default function FormLogin(){
                     name="emailLogin"
                     id="emailLogin"
                     placeholder="Endereço de email"
+                    required
                 />
 
                 <label>Senha</label>
@@ -320,7 +323,7 @@ export default function FormLogin(){
             </form>
             <p>
             Não tem uma conta?
-            <Cadastrar to="/cadastro">Cadastrar</Cadastrar>
+            <Cadastrar href="/cadastro">Cadastrar</Cadastrar>
             </p>
         </Main>
     )
