@@ -1,122 +1,34 @@
 import styled from "styled-components";
-
+import React, { useEffect, useState } from 'react';
+import { LoadScript, GoogleMap, Marker } from '@react-google-maps/api';
 
 const MecanicasSection = styled.section`
   margin: 90px 180px;
 
-  h1{
+  h1 {
     font-size: 40px;
     margin-bottom: 26px;
   }
 
-  input{
-    font-size: 20px;
-    color: #777777;
-    width: 360px;
-    border: 1px solid #777777;
-    padding: 10px 10px;
-
-    position: absolute;
-    top: 1380px;
-    left: 39%;
-  }
-
-  iframe{
-    width: 100%;
-    height: 400px;
-    border-radius: 30px;
-    border: none;
-  }
-
-
   @media only screen and (max-width: 1440px) {
     margin: 8% 6%;
-    
+
     h1 {
       font-size: 34px;
-    }
-
-    input {
-      top: 1300px;
-      left: 35%;
-    }
-  }
-
-  @media only screen and (max-width: 1120px) {
-    input {
-      top: 1240px;
-      left: 34%;
     }
   }
 
   @media only screen and (max-width: 834px) {
     margin: 6% 4%;
-    
+
     h1 {
       font-size: 32px;
-    }
-
-    input {
-      font-size: 18px;
-      width: 300px;
-      top: 1100px;
-      left: 26%;
     }
   }
 
   @media only screen and (max-width: 680px) {
     h1 {
       font-size: 28px;
-    }
-
-    input {
-      font-size: 16px;
-      width: 260px;
-      top: 1040px;
-      left: 26%;
-    }
-  }
-
-  @media only screen and (max-width: 480px) {
-    h1 {
-      font-size: 26px;
-    }
-
-    input {
-      left: 20%;
-    }
-  }
-
-  @media only screen and (max-width: 400px) {
-    h1 {
-      font-size: 26px;
-      text-align: center;
-    }
-
-    input {
-      left: 15%;
-      top: 148%;
-    }
-  }
-
-  @media only screen and (max-width: 380px) {
-    input {
-      left: 14%;
-      top: 150%;
-    }
-  }
-
-  @media only screen and (max-width: 360px) {
-    input {
-      left: 14%;
-      top: 160%;
-    }
-  }
-
-  @media only screen and (max-width: 320px) {
-    input {
-      left: 10%;
-      top: 226%;
     }
   }
 `;
@@ -129,26 +41,70 @@ const IconMecanicas = styled.img`
   @media only screen and (max-width: 680px) {
     width: 26px;
   }
-
-  @media only screen and (max-width: 400px) {
-    width: 22px;
-  }
 `;
 
-export default function CentrosAutomotivos(){
-    return(
-        <MecanicasSection id="centrosAutomotivos-main">
-          <h1>
-            <IconMecanicas src="/assets/img/iconEngrenagem.png" alt="Ícone de uma engrenagem" />
-            Centros Automotivos
-          </h1>
-          <input
-            type="text"
-            placeholder="Informe sua localização..."
-          />
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14412.643052178572!2d-46.64049568419688!3d-23.56722431319171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDU1JzQyLjYiUyA0NsKwNDAnMTkuNiJX!5e0!3m2!1spt-BR!2sbr!4v1649869107530!5m2!1spt-BR!2sbr"
-          ></iframe>
-        </MecanicasSection>
-    )
+
+const mapContainerStyle = {
+  width: "100%",
+  height: "400px",
+  borderRadius: "5px",
+};
+
+const defaultCenter = { lat: -23.5672243, lng: -46.6404956 }; // Ponto inicial (por exemplo, São Paulo)
+
+export default function CentrosAutomotivos() {
+  const [location, setLocation] = useState(defaultCenter);
+  const [mechanics, setMechanics] = useState([]);
+  const apiKey = "AIzaSyBd2k4ZkH-eFCNSRhmhd9HJ0xym8abqEyk";
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const userLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        setLocation(userLocation);
+        fetchNearbyMechanics(userLocation.lat, userLocation.lng);
+      });
+    }
+  }, []);
+
+  const fetchNearbyMechanics = async (lat, lng) => {
+    const apiUrl = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=car_repair&key=${apiKey}`;
+
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error('Erro ao buscar mecânicas');
+      }
+      const data = await response.json();
+      setMechanics(data.results);
+    } catch (error) {
+      console.error("Erro ao buscar mecânicas:", error);
+    }
+  };
+
+  return (
+    <MecanicasSection id="centrosAutomotivos-main">
+      <h1>
+        <IconMecanicas src="/assets/img/iconEngrenagem.png" alt="Ícone de uma engrenagem" />
+        Centros Automotivos
+      </h1>
+      <LoadScript googleMapsApiKey={apiKey}>
+        <GoogleMap mapContainerStyle={mapContainerStyle} center={location} zoom={13}>
+          {mechanics.map((place) => (
+            <Marker
+              key={place.place_id}
+              position={{
+                lat: place.geometry.location.lat,
+                lng: place.geometry.location.lng,
+              }}
+              title={place.name}
+            />
+          ))}
+        </GoogleMap>
+      </LoadScript>
+    </MecanicasSection>
+  );
 }

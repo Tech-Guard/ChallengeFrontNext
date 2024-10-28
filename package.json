@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.20.3",
+    "axios": "^1.7.7",
+    "express": "^4.21.1",
+    "http-proxy-middleware": "^3.0.3",
     "next": "^15.0.1",
     "react-router-dom": "^6.27.0",
     "react-scroll": "^1.9.0",
