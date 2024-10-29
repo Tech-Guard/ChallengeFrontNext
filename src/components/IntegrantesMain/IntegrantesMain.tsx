@@ -1,3 +1,4 @@
+"use client";
 import CardsIntegrantes from "../CardsIntegrantes/CardsIntegrantes";
 import styled from "styled-components";
 

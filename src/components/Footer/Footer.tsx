@@ -1,3 +1,4 @@
+"use client";
 import styled from "styled-components";
 import { Link as ScrollLink } from 'react-scroll';
 import Link from "next/link";
