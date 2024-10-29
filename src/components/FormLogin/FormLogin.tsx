@@ -105,7 +105,6 @@ const ButtonsDiv = styled.div`
     padding-top: 15px;
     margin-top: 30px;
     margin-bottom: 30px;
-    padding-right: 3px;
     cursor: pointer;
 
     @media only screen and (max-width: 480px){
@@ -126,6 +125,7 @@ const BtnEntrar = styled.a`
     border-radius: 20px;
     padding: 10px 30px;
     cursor: pointer;
+    margin-right: 7px;
     transition: background-color 0.3s ease-in;
 
     &:hover{
@@ -322,8 +322,8 @@ export default function FormLogin(){
                 <Button type="button" className="btnEntrar">Entrar</Button>
             </form>
             <p>
-            Não tem uma conta?
-            <Cadastrar href="/cadastro">Cadastrar</Cadastrar>
+            Não tem uma conta? 
+            <Cadastrar href="/cadastro"> Cadastrar</Cadastrar>
             </p>
         </Main>
     )

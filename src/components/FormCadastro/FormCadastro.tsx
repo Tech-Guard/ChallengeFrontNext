@@ -109,7 +109,7 @@ const BtnCadastro = styled(Link)`
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.3s ease-in;
-    margin-left: 6px;
+    margin-left: 14px;
 
     &:hover{
         background-color: #054a77;
