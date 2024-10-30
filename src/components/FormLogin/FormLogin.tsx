@@ -157,7 +157,11 @@ const BtnCadastro = styled(Link)`
     }
 `;
 
-const Bolinha = styled.span<{ mostrarSenha: boolean }>`
+interface BolinhaProps {
+    mostrarSenha: boolean;
+}
+
+const Bolinha = styled.span`
     display: inline-block;
     width: 14px;
     height: 14px;
@@ -167,7 +171,7 @@ const Bolinha = styled.span<{ mostrarSenha: boolean }>`
     margin-right: 5px;
     margin-top: 8px;
     cursor: pointer;
-    background-color: ${(props) => (props.mostrarSenha ? "black" : "white")};
+    background-color: ${(props) => (props.className === "mostrar" ? "black" : "white")};
 
     @media only screen and (max-width: 480px){
         width: 12px;
@@ -310,7 +314,7 @@ export default function FormLogin(){
                     placeholder="Senha"
                 />
                 <MostrarSenha onClick={toggleMostrarSenha}>
-                    <Bolinha mostrarSenha={mostrarSenha} />
+                    <Bolinha className={mostrarSenha ? "mostrar" : ""}/>
                     {mostrarSenha ? "Esconder senha" : "Mostrar senha"}
                 </MostrarSenha>
 
