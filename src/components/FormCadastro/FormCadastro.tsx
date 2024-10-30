@@ -281,10 +281,43 @@ const Bolinha = styled.span`
 
 export default function FormCadastro(){
 
+    const [email, setEmail] = useState('');
+    const [nome, setNome] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [senha, setSenha] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
 
     const toggleMostrarSenha = () => {
         setMostrarSenha(!mostrarSenha);
+    };
+
+    const handleRegister = async () => {
+        const cliente = {
+            nome,
+            telefone,
+            cpf,
+            email,
+            senha
+        };
+
+        try {
+            const response = await fetch("http://localhost:8080/techguard/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(cliente)
+            });
+
+            if (response.ok) {
+                console.log("Cadastro realizado com sucesso!");
+            } else {
+                console.error("Erro ao realizar o cadastro.");
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+        }
     };
 
     return(
@@ -295,34 +328,49 @@ export default function FormCadastro(){
                 <BtnCadastro href="/">Cadastrar</BtnCadastro>
             </ButtonsDiv>
 
-            <form>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <InputMaior
                     type="email"
-                    name="emailCadastro"
+                    name="email"
                     placeholder="Endereço de email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                 />
                 <div className="input-coluna2">
                     <Input
                     type="text"
-                    name="nomeCadastro"
+                    name="nome"
                     placeholder="Nome e Sobrenome"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                    required
                     />
                     <Input
                     type="tel"
-                    name="telCadastro"
+                    name="telefone"
                     placeholder="Telefone"
+                    value={telefone}
+                    onChange={(e) => setTelefone(e.target.value)}
+                    required
                     />
                 </div>
                 <div className="input-coluna2">
                     <Input
-                    type="number"
-                    name="cpfCadastro"
+                    type="string"
+                    name="cpf"
                     placeholder="CPF"
+                    value={cpf}
+                    onChange={(e) => setCpf(e.target.value)}
+                    required
                     />
                     <Input
                     type={mostrarSenha ? "text" : "password"}
-                    name="senhaCadastro"
+                    name="senha"
                     placeholder="Senha"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                    required
                     />
                 </div>
 
@@ -331,7 +379,7 @@ export default function FormCadastro(){
                     {mostrarSenha ? "Esconder senha" : "Mostrar senha"}
                 </MostrarSenha>
 
-                <Registrar type="button">Registrar</Registrar>
+                <Registrar type="button" onClick={handleRegister}>Registrar</Registrar>
             </form>
             <p>
             Já tem uma conta? <Entrar href="/login">Entrar</Entrar>
