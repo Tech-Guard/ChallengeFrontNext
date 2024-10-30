@@ -302,7 +302,7 @@ export default function FormCadastro(){
         };
 
         try {
-            const response = await fetch("http://localhost:8080/techguard/", {
+            const response = await fetch("http://localhost:8080/techguard/cliente", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
