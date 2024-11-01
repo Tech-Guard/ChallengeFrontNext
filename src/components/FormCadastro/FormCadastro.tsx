@@ -25,6 +25,7 @@ const Main = styled.main`
         text-align: left;
         padding-left: 160px;  
         margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     @media only screen and (max-width: 1165px){
@@ -55,6 +56,7 @@ const Main = styled.main`
     @media only screen and (max-width: 480px){
         max-width: 310px;
         padding: 40px 0px;
+        height: 620px;
     }
 `;
 
@@ -275,6 +277,36 @@ const Bolinha = styled.span`
     }
 `;
 
+interface MensagemProps {
+    mensagemCor: string;
+}
+
+const StyledMensagem = styled.div`
+    margin-top: 10px;
+    width: 63%;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    border: 2px solid;
+    border-radius: 5px;
+    color: ${({ className }) => (className === 'success' ? 'green' : 'red')};
+    border-color: ${({ className }) => (className === 'success' ? 'green' : 'red')};
+    background-color: ${({ className }) =>
+        className === 'success' ? '#e7f7e4' : '#f9e4e4'};
+
+    @media only screen and (max-width: 1165px){
+        width: 95%;
+    }
+
+    @media only screen and (max-width: 665px){
+        width: 93%;
+        font-size: 20px;
+    }
+
+    @media only screen and (max-width: 480px){
+        width: 90%;
+    }
+`;
 
 
 
@@ -287,6 +319,8 @@ export default function FormCadastro(){
     const [cpf, setCpf] = useState('');
     const [senha, setSenha] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [mensagem, setMensagem] = useState('');
+    const [mensagemCor, setMensagemCor] = useState('');
 
     const toggleMostrarSenha = () => {
         setMostrarSenha(!mostrarSenha);
@@ -311,12 +345,15 @@ export default function FormCadastro(){
             });
 
             if (response.ok) {
-                console.log("Cadastro realizado com sucesso!");
+                setMensagem("Cadastro realizado com sucesso!");
+                setMensagemCor("green");
             } else {
-                console.error("Erro ao realizar o cadastro.");
+                setMensagem("Erro ao realizar o cadastro.");
+                setMensagemCor("red");
             }
         } catch (error) {
-            console.error("Erro na requisição:", error);
+            setMensagem("Erro na requisição: " + error.message);
+            setMensagemCor("red");
         }
     };
 
@@ -357,7 +394,7 @@ export default function FormCadastro(){
                 </div>
                 <div className="input-coluna2">
                     <Input
-                    type="string"
+                    type='text'
                     name="cpf"
                     placeholder="CPF"
                     value={cpf}
@@ -379,11 +416,16 @@ export default function FormCadastro(){
                     {mostrarSenha ? "Esconder senha" : "Mostrar senha"}
                 </MostrarSenha>
 
-                <Registrar type="button" onClick={handleRegister}>Registrar</Registrar>
+                <Registrar type="submit" onClick={handleRegister}>Registrar</Registrar>
             </form>
             <p>
             Já tem uma conta? <Entrar href="/login">Entrar</Entrar>
             </p>
+            {mensagem && (
+                <StyledMensagem className={mensagemCor}>
+                    {mensagem}
+                </StyledMensagem>
+            )}
         </Main>
     )
 }
