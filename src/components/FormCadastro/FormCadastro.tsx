@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import styled from "styled-components";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 const Main = styled.main`
@@ -313,7 +314,7 @@ const ErrorMessage = styled(Message)`
 
 export default function FormCadastro(){
 
-
+    const navigate = useRouter();
 
     const [email, setEmail] = useState('');
     const [id, setId] = useState('');
@@ -353,12 +354,17 @@ export default function FormCadastro(){
             if (response.ok) {
                 setMessage("Cadastro realizado com sucesso!");
                 setIsSuccess(true);
+    
                 setNome('');
                 setTelefone('');
                 setCpf('');
                 setEmail('');
                 setSenha('');
                 setId('');
+
+                setTimeout(()=>{
+                    navigate.push('/');
+                }, 1500);
             } else {
                 const errorMessage = await response.text();
                 setMessage(errorMessage || "Erro ao realizar cadastro.");

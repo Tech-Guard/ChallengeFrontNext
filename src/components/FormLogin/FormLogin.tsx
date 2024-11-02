@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import styled from "styled-components";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
+
 
 
 
@@ -36,6 +38,7 @@ const Main = styled.main`
         text-align: left;
         padding-left: 260px;  
         margin-top: 10px;
+        margin-bottom: 15px;
     }
 
     @media only screen and (max-width: 1165px){
@@ -279,13 +282,78 @@ const Cadastrar = styled(Link)`
     }
 `;
 
+const Message = styled.div`
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+
+    @media only screen and (max-width: 1165px){
+        width: 66%; 
+    }
+    @media only screen and (max-width: 900px){
+        width: 84%;  
+    }
+
+    @media only screen and (max-width: 665px){
+        width: 100%;  
+    }
+`;
+
+const SuccessMessage = styled(Message)`
+    background-color: green; 
+`;
+
+const ErrorMessage = styled(Message)`
+    background-color: red;
+`;
+
+
 
 export default function FormLogin(){
 
     const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [message, setMessage] = useState(null);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const navigate = useRouter();
 
     const toggleMostrarSenha = () => {
         setMostrarSenha(!mostrarSenha);
+    };
+
+    const handleLogin = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/techguard/cliente/login?email=${email}&senha=${senha}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (response.ok) {
+                setMessage("Login realizado com sucesso!");
+                setIsSuccess(true);
+
+                setEmail("");
+                setSenha("");
+
+                
+                setTimeout(()=>{
+                    navigate.push('/');
+                }, 1500);
+            } else {
+                const errorMessage = await response.text();
+                setMessage("Email ou senha incorreto.");
+                setIsSuccess(false);
+            }
+        } catch (error) {
+            setMessage("Erro na requisição: " + error.message);
+            setIsSuccess(false);
+        }
     };
 
     return(
@@ -297,13 +365,16 @@ export default function FormLogin(){
                 <BtnCadastro href="/cadastro">Cadastrar</BtnCadastro>
             </ButtonsDiv>
 
-            <form id="entrarForm">
+            <form  id="entrarForm" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
                 <label>Login</label>
                 <Input
                     type="email"
                     name="emailLogin"
                     id="emailLogin"
                     placeholder="Endereço de email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                 />
 
                 <label>Senha</label>
@@ -312,18 +383,28 @@ export default function FormLogin(){
                     name="senhaLogin"
                     id="senhaLogin"
                     placeholder="Senha"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                    required
                 />
                 <MostrarSenha onClick={toggleMostrarSenha}>
                     <Bolinha className={mostrarSenha ? "mostrar" : ""}/>
                     {mostrarSenha ? "Esconder senha" : "Mostrar senha"}
                 </MostrarSenha>
 
-                <Button type="button" className="btnEntrar">Entrar</Button>
+                <Button type="submit" className="btnEntrar">Entrar</Button>
             </form>
             <p>
             Não tem uma conta? 
             <Cadastrar href="/cadastro"> Cadastrar</Cadastrar>
             </p>
+
+            {message && (isSuccess ? (
+                <SuccessMessage>{message}</SuccessMessage>
+            ) : (
+                <ErrorMessage>{message}</ErrorMessage>
+            ))}
+
         </Main>
     )
 }
