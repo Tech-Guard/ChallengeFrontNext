@@ -17,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
+      <head>
+      <link rel="icon" href="/assets/img/logo.ico" type="image/x-icon" />
+      </head>
       <body >
         <Header />
         {children}

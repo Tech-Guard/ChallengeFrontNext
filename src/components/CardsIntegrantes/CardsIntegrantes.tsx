@@ -138,11 +138,11 @@ export default function CardsIntegrantes(props: {
       <h2>{props.nome}</h2>
       <p>{props.rm}</p>
       <a
-        href="https://github.com/Tech-Guard/challengeFront"
+        href="https://github.com/Tech-Guard/ChallengeFrontNext"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="/assets/img/iconGithub.png" alt="Icone do Github" />
+        <img src="/assets/img/iconGithub.png" alt="Icone do Github" loading="lazy"/>
       </a>
     </IntegrantesDiv>
   );
