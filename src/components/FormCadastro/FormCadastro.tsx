@@ -277,22 +277,14 @@ const Bolinha = styled.span`
     }
 `;
 
-interface MensagemProps {
-    mensagemCor: string;
-}
 
-const StyledMensagem = styled.div`
-    margin-top: 10px;
+const Message = styled.div`
     width: 63%;
     display: block;
     margin: 0 auto;
     padding: 10px;
-    border: 2px solid;
     border-radius: 5px;
-    color: ${({ className }) => (className === 'success' ? 'green' : 'red')};
-    border-color: ${({ className }) => (className === 'success' ? 'green' : 'red')};
-    background-color: ${({ className }) =>
-        className === 'success' ? '#e7f7e4' : '#f9e4e4'};
+    color: white;
 
     @media only screen and (max-width: 1165px){
         width: 95%;
@@ -308,19 +300,30 @@ const StyledMensagem = styled.div`
     }
 `;
 
+const SuccessMessage = styled(Message)`
+    background-color: green; 
+`;
+
+const ErrorMessage = styled(Message)`
+    background-color: red;
+`;
+
 
 
 
 export default function FormCadastro(){
 
+
+
     const [email, setEmail] = useState('');
+    const [id, setId] = useState('');
     const [nome, setNome] = useState('');
     const [telefone, setTelefone] = useState('');
     const [cpf, setCpf] = useState('');
     const [senha, setSenha] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
-    const [mensagem, setMensagem] = useState('');
-    const [mensagemCor, setMensagemCor] = useState('');
+    const [message, setMessage] = useState(null);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const toggleMostrarSenha = () => {
         setMostrarSenha(!mostrarSenha);
@@ -332,7 +335,8 @@ export default function FormCadastro(){
             telefone,
             cpf,
             email,
-            senha
+            senha,
+            id
         };
 
         try {
@@ -344,16 +348,26 @@ export default function FormCadastro(){
                 body: JSON.stringify(cliente)
             });
 
+            console.log('Response status:', response.status);
+
             if (response.ok) {
-                setMensagem("Cadastro realizado com sucesso!");
-                setMensagemCor("green");
+                setMessage("Cadastro realizado com sucesso!");
+                setIsSuccess(true);
+                setNome('');
+                setTelefone('');
+                setCpf('');
+                setEmail('');
+                setSenha('');
+                setId('');
             } else {
-                setMensagem("Erro ao realizar o cadastro.");
-                setMensagemCor("red");
+                const errorMessage = await response.text();
+                setMessage(errorMessage || "Erro ao realizar cadastro.");
+                setIsSuccess(false);
             }
+    
         } catch (error) {
-            setMensagem("Erro na requisição: " + error.message);
-            setMensagemCor("red");
+            setMessage("Erro na requisição: " + error.message);
+            setIsSuccess(false);
         }
     };
 
@@ -372,7 +386,7 @@ export default function FormCadastro(){
                     placeholder="Endereço de email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
+                    
                 />
                 <div className="input-coluna2">
                     <Input
@@ -381,7 +395,7 @@ export default function FormCadastro(){
                     placeholder="Nome e Sobrenome"
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
-                    required
+                    
                     />
                     <Input
                     type="tel"
@@ -389,7 +403,7 @@ export default function FormCadastro(){
                     placeholder="Telefone"
                     value={telefone}
                     onChange={(e) => setTelefone(e.target.value)}
-                    required
+                    
                     />
                 </div>
                 <div className="input-coluna2">
@@ -399,7 +413,7 @@ export default function FormCadastro(){
                     placeholder="CPF"
                     value={cpf}
                     onChange={(e) => setCpf(e.target.value)}
-                    required
+                    
                     />
                     <Input
                     type={mostrarSenha ? "text" : "password"}
@@ -407,7 +421,7 @@ export default function FormCadastro(){
                     placeholder="Senha"
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}
-                    required
+                    
                     />
                 </div>
 
@@ -421,11 +435,11 @@ export default function FormCadastro(){
             <p>
             Já tem uma conta? <Entrar href="/login">Entrar</Entrar>
             </p>
-            {mensagem && (
-                <StyledMensagem className={mensagemCor}>
-                    {mensagem}
-                </StyledMensagem>
-            )}
+            {message && (isSuccess ? (
+                <SuccessMessage>{message}</SuccessMessage>
+            ) : (
+                <ErrorMessage>{message}</ErrorMessage>
+            ))}
         </Main>
     )
 }
