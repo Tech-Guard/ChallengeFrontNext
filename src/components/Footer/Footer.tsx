@@ -143,10 +143,10 @@ export default function Footer(){
         <FooterContainer>
           <Nav>
               <ul>
-                  <li><ScrollLink to="headerMain" smooth={true} duration={500}>Entrar</ScrollLink></li>
+                  <li><ScrollLink to="headerMain" smooth={true} duration={500}>Home</ScrollLink></li>
                   <li><ScrollLink to="centrosAutomotivos-main" smooth={true} duration={500}>Localização</ScrollLink></li>
                   <li><ScrollLink to="faq-main" smooth={true} duration={500}>FAQ</ScrollLink></li>
-                  <li><Link href="/login">ENTRAR</Link></li>
+                  <li><Link href="/login">Entrar</Link></li>
                   <li>
                     <ScrollLink to="atendimento-main" smooth={true} duration={500}>ATENDIMENTO</ScrollLink>
                   </li>

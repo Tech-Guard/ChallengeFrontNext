@@ -51,7 +51,7 @@ const mapContainerStyle = {
   borderRadius: "5px",
 };
 
-const defaultCenter = { lat: -23.5672243, lng: -46.6404956 }; // Ponto inicial (por exemplo, São Paulo)
+const defaultCenter = { lat: -23.5672243, lng: -46.6404956 };
 
 export default function CentrosAutomotivos() {
   const [location, setLocation] = useState(defaultCenter);

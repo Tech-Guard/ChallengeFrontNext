@@ -1,4 +1,4 @@
-
+import Image from 'next/image';
 import styled from "styled-components";
 
 
@@ -77,9 +77,11 @@ const ProblemasDiv = styled.div`
 export default function CardsProblemas(props:{titulo:string, altImg:string, srcImg:string}){
     return(
             <ProblemasDiv>
-              <img
+              <Image
                 src={props.srcImg}
                 alt={props.altImg}
+                width={150}
+                height={160}
               />
               <p>{props.titulo}</p>
             </ProblemasDiv>

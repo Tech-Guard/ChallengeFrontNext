@@ -257,9 +257,6 @@ const Entrar = styled(Link)`
 `;
 
 
-interface BolinhaProps {
-    mostrarSenha: boolean;
-}
 
 const Bolinha = styled.span`
     display: inline-block;

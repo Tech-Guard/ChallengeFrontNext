@@ -12,6 +12,7 @@ export async function GET(request) {
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ error: "Erro ao buscar mecânicas" }, { status: 500 });
   }
 }

@@ -160,9 +160,6 @@ const BtnCadastro = styled(Link)`
     }
 `;
 
-interface BolinhaProps {
-    mostrarSenha: boolean;
-}
 
 const Bolinha = styled.span`
     display: inline-block;
@@ -346,11 +343,11 @@ export default function FormLogin(){
                     navigate.push('/');
                 }, 1500);
             } else {
-                const errorMessage = await response.text();
                 setMessage("Email ou senha incorreto.");
                 setIsSuccess(false);
             }
         } catch (error) {
+            console.log(error)
             setMessage("Erro na requisição: " + error.message);
             setIsSuccess(false);
         }

@@ -135,6 +135,10 @@ const InputContainer = styled.div`
       width: 90%;
     }
   }
+
+  @media only screen and (max-width: 400px) {
+    padding: 10px 20px;
+  }
 `;
 
 const LupaInput = styled.img`

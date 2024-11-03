@@ -1,5 +1,6 @@
 "use client";
 import styled from "styled-components";
+import Image from 'next/image';
 
 const IntegrantesDiv = styled.div`
   display: inline-block;
@@ -142,7 +143,7 @@ export default function CardsIntegrantes(props: {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src="/assets/img/iconGithub.png" alt="Icone do Github" loading="lazy"/>
+        <Image src="/assets/img/iconGithub.png" alt="Icone do Github" loading="lazy" width={30} height={40}/>
       </a>
     </IntegrantesDiv>
   );

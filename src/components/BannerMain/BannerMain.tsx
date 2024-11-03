@@ -1,6 +1,7 @@
 "use client";
 import styled from "styled-components";
 import { Link as ScrollLink } from 'react-scroll';
+import Image from 'next/image';
 
 const BannerSection = styled.section`
   display: flex;
@@ -183,9 +184,11 @@ export default function BannerMain() {
       </TextoBanner>
 
       <ImgBanner>
-        <img
+        <Image
           src="/assets/img/banner.jpg"
           alt="Imagem de um mecânico arrumando um carro"
+          width= {700}
+          height= {400}
         />
       </ImgBanner>
     </BannerSection>

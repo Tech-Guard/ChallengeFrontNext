@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
+import Image from 'next/image';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -52,14 +53,12 @@ const LogoHeader = styled.div`
 
     @media only screen and (max-width: 680px) {
       width: 68px;
+      height: 68px;
     }
 
     @media only screen and (max-width: 480px) {
       width: 50px;
-    }
-
-    @media only screen and (max-width: 400px) {
-      width: 50px;
+      height: 50px;
     }
   }
 `;
@@ -69,6 +68,7 @@ const MenuIcon = styled.div`
   display: none;
   position: absolute;
   right: 10px;
+  top: 35px;
 
   @media only screen and (max-width: 834px) {
     display: block;
@@ -170,11 +170,11 @@ export default function Header() {
   return (
     <HeaderContainer id="headerMain">
       <LogoHeader>
-        <img src="/assets/img/logoHeader.png" alt="Imagem do logo Tech Guard" />
+        <Image src="/assets/img/logoHeader.png" alt="Imagem do logo Tech Guard" width={90} height={90}/>
       </LogoHeader>
 
       <MenuIcon onClick={toggleMenu}>
-        <img src="/assets/img/iconMenu.png" alt="Imagem de 3 linhas, menu" />
+        <Image src="/assets/img/iconMenu.png" alt="Imagem de 3 linhas, menu" width={36} height={36}/>
       </MenuIcon>
 
       <Nav $isMenuOpen={isMenuOpen}>
