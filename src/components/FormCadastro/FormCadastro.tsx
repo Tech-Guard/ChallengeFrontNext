@@ -387,6 +387,7 @@ export default function FormCadastro(){
                     type="email"
                     name="email"
                     placeholder="Endereço de email"
+                    maxLength={200}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     
@@ -397,6 +398,7 @@ export default function FormCadastro(){
                     name="nome"
                     placeholder="Nome e Sobrenome"
                     value={nome}
+                    maxLength={100}
                     onChange={(e) => setNome(e.target.value)}
                     
                     />
@@ -404,6 +406,7 @@ export default function FormCadastro(){
                     type="tel"
                     name="telefone"
                     placeholder="Telefone"
+                    maxLength={20}
                     value={telefone}
                     onChange={(e) => setTelefone(e.target.value)}
                     
@@ -414,6 +417,7 @@ export default function FormCadastro(){
                     type='text'
                     name="cpf"
                     placeholder="CPF"
+                    maxLength={11}
                     value={cpf}
                     onChange={(e) => setCpf(e.target.value)}
                     
@@ -422,6 +426,7 @@ export default function FormCadastro(){
                     type={mostrarSenha ? "text" : "password"}
                     name="senha"
                     placeholder="Senha"
+                    maxLength={50}
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}
                     
