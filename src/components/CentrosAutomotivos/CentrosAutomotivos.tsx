@@ -72,12 +72,12 @@ export default function CentrosAutomotivos() {
   }, []);
 
   const fetchNearbyMechanics = async (lat, lng) => {
-    const apiUrl = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=car_repair&key=${apiKey}`;
-
+    const apiUrl = `/api/nearby-mechanics?lat=${lat}&lng=${lng}`;
+  
     try {
       const response = await fetch(apiUrl);
       if (!response.ok) {
-        throw new Error('Erro ao buscar mecânicas');
+        throw new Error("Erro ao buscar mecânicas");
       }
       const data = await response.json();
       setMechanics(data.results);
