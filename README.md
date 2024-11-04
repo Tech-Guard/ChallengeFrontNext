@@ -2,6 +2,8 @@
 # Tech Guard
 A Tech Guard é uma empresa líder em soluções de seguros automotivos, proporcionando diagnósticos precisos e orçamentos transparentes através de nossa plataforma inovadora. Nosso compromisso é oferecer aos clientes uma experiência conveniente e confiável, com foco na segurança e qualidade dos serviços prestados.
 
+Visite nosso site [aqui](https://challenge-front-next.vercel.app)
+
 ## Sobre o Projeto
 A Tech Guard é uma empresa inovadora no setor de seguros automotivos. Nosso sistema oferece diagnósticos remotos para veículos, estimativas de preços baseadas em dados reais e uma rede confiável de oficinas recomendadas. A plataforma visa simplificar o processo de manutenção automotiva, proporcionando segurança e transparência.
 
@@ -12,7 +14,7 @@ A Tech Guard é uma empresa inovadora no setor de seguros automotivos. Nosso sis
 - Interação via chatbot inteligente para suporte
 - Interface amigável e acessível para usuários de todos os níveis de conhecimento técnico
 
-Confira um vídeo demonstrativo das funcionalidades [aqui](https://youtu.be/5C7y79BBJ28?si=m1UKPg3BAFLzlSP-).
+Confira um vídeo demonstrativo das funcionalidades [aqui](https://www.youtube.com/watch?v=CBZy6YVqY-s).
 
 ## Tecnologias Utilizadas
 - Node.js
