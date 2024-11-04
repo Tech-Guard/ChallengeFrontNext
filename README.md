@@ -37,6 +37,19 @@ Confira um vídeo demonstrativo das funcionalidades [aqui](https://www.youtube.c
    ```bash
    npm run dev
 
+## Configuração do Login/Cadastro
+Para realizar o login/cadastro, é necessário clonar também o repositório do backend em Java e executar o arquivo APP localmente. Siga as instruções abaixo:
+1. Clonar o repositório de java (Entre no Git Bash e execute esse código)
+   ```
+   git clone https://github.com/Tech-Guard/challenge-java.git
+
+2. Navegue até a pasta do backend e execute o arquivo APP.
+
+## Integrações
+- Java
+- Banco de Dados
+- IA
+
 ## Integrantes
 - Julio César Santos Maciel RM554466
 - Brenno Cauet Vilela RM557334
