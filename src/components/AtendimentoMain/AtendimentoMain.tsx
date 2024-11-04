@@ -1,5 +1,6 @@
 "use client";
 import styled from "styled-components";
+import React, { useState } from "react";
 import CardsProblemas from "../CardsProblemas/CardsProblemas";
 
 const AtendimentoSection = styled.section`
@@ -13,6 +14,7 @@ const AtendimentoSection = styled.section`
 
   p {
     font-size: 22px;
+    margin-bottom: 10px;
   }
 
   @media only screen and (max-width: 1440px) {
@@ -73,6 +75,32 @@ const AtendimentoSection = styled.section`
       text-align: center;
     }
   }
+`;
+
+const ChatContainer = styled.div`
+  width: 100%;
+  margin: 30px 0px 0px 0px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+interface MessageProps {
+  sender: "user" | "bot"; 
+}
+
+const Message = styled.div<MessageProps>`
+  align-self: ${({ sender }) => (sender === "user" ? "flex-end" : "flex-start")};
+  max-width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: ${({ sender }) => (sender === "user" ? "#d1e7ff" : "#e9ecef")};
 `;
 
 const IconIA = styled.img`
@@ -175,6 +203,46 @@ export default function AtendimentoMain() {
     },
   ];
 
+
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+
+  const apiWatson = async (message) => {
+    const apikey = "tOiXPfrVzxsK4gRJXqtZO9OwKL207PQa97OzpZCPWyQx";
+    const url = "https://api.au-syd.assistant.watson.cloud.ibm.com/v1/workspaces/f6c8b0ba-541e-46de-b9bd-dacdec87ed6c/message?version=2020-04-01";
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${btoa("apikey:" + apikey)}`,
+      },
+      body: JSON.stringify({
+        input: { text: message },
+      }),
+    });
+
+    if (!response.ok) throw new Error("Erro na comunicação com a API");
+    const data = await response.json();
+    return data.output.generic[0].text;
+  };
+
+  const sendMessage = async () => {
+    if (!input.trim()) return; 
+    const userMessage = { text: input, sender: "user" };
+    setMessages((prevMessages) => [...prevMessages, userMessage]); 
+    const currentInput = input; 
+    setInput("");
+
+    try {
+      const botResponse = await apiWatson(currentInput); 
+      const botMessage = { text: botResponse, sender: "bot" };
+      setMessages((prevMessages) => [...prevMessages, botMessage]); 
+    } catch (error) {
+      console.error("Erro ao obter a resposta do bot:", error);
+      setMessages((prevMessages) => [...prevMessages, { text: "Erro ao se comunicar com o bot.", sender: "bot" }]);
+    }
+  };
+
   return (
     <AtendimentoSection id="atendimento-main">
       <h1>
@@ -182,12 +250,23 @@ export default function AtendimentoMain() {
         com a nossa IA
       </h1>
       <p>Faça o diagnóstico e o orçamento do seu carro totalmente online.</p>
+
+      <ChatContainer>
+        {messages.map((msg, index) => (
+          <Message key={index} sender={msg.sender}>
+            {msg.text}
+          </Message>
+        ))}
+      </ChatContainer>
+      
       <InputContainer>
         <input
           type="text"
           placeholder="Gostaria de fazer o diagnóstico do meu carro..."
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
-        <LupaInput src="/assets/img/iconLupa.png" alt="Imagem de uma lupa" />
+        <LupaInput src="/assets/img/iconLupa.png" alt="Imagem de uma lupa" onClick={sendMessage} role="button" aria-label="Enviar mensagem" />
       </InputContainer>
 
       <ProblemasText>*Possíveis problemas</ProblemasText>

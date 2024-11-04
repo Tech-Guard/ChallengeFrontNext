@@ -328,6 +328,13 @@ export default function FormCadastro(){
     };
 
     const handleRegister = async () => {
+
+        if (!email || !nome || !telefone || !cpf || !senha) {
+            setMessage("Por favor, preencha todos os campos obrigatórios.");
+            setIsSuccess(false);
+            return;
+        }
+
         const cliente = {
             nome,
             telefone,
@@ -390,7 +397,7 @@ export default function FormCadastro(){
                     maxLength={200}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    
+                    required
                 />
                 <div className="input-coluna2">
                     <Input
@@ -400,7 +407,7 @@ export default function FormCadastro(){
                     value={nome}
                     maxLength={100}
                     onChange={(e) => setNome(e.target.value)}
-                    
+                    required
                     />
                     <Input
                     type="tel"
@@ -409,7 +416,7 @@ export default function FormCadastro(){
                     maxLength={20}
                     value={telefone}
                     onChange={(e) => setTelefone(e.target.value)}
-                    
+                    required
                     />
                 </div>
                 <div className="input-coluna2">
@@ -420,7 +427,7 @@ export default function FormCadastro(){
                     maxLength={11}
                     value={cpf}
                     onChange={(e) => setCpf(e.target.value)}
-                    
+                    required
                     />
                     <Input
                     type={mostrarSenha ? "text" : "password"}
@@ -429,7 +436,7 @@ export default function FormCadastro(){
                     maxLength={50}
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}
-                    
+                    required
                     />
                 </div>
 
