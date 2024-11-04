@@ -10,7 +10,7 @@ A Tech Guard é uma empresa inovadora no setor de seguros automotivos. Nosso sis
 ## Funcionalidades
 - Diagnóstico remoto de problemas automotivos
 - Estimativa de custo para peças e mão de obra
-- Sugestão de oficinas mecânicas próximas com base na localização do cliente
+- Sugestão de oficinas mecânicas próximas com base na localização do cliente (OBS: permitir navegador acessar sua localização)
 - Interação via chatbot inteligente para suporte
 - Interface amigável e acessível para usuários de todos os níveis de conhecimento técnico
 
